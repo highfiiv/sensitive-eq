@@ -1,0 +1,11 @@
+@import 'includes/scss-variables';
+@import 'includes/root-variables';
+@import 'includes/normalize';
+
+// base sizes styles
+@import 'sizes/base';
+
+// Dark mode style overrides
+@media (prefers-color-scheme: dark) {
+    @import 'sizes/dark';
+}

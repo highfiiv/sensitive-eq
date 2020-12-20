@@ -1,0 +1,35 @@
+:host {
+    position:relative;
+    min-width: 25px;
+    height: 255px; // frequencyBinCount is 0 - 255
+    align-items: flex-end;
+    background-color: #868686;
+
+    // range defined gradient to define sensitivity zone
+    background: linear-gradient(rgba(253,92,99,1), rgba(144,255,0,1) 50%);
+}
+
+.eqband{
+    position: relative;
+    width:calc(1vw);
+    height: 0px;
+    background: rgb(255, 255, 255);
+}
+
+.range-form{
+    position:relative;
+    width:10px;
+    height: 255px;
+}
+input-range{
+    position:absolute;
+    height: 255px;
+}
+.score{
+    position:absolute;
+    top: -34px;
+    width:100%;
+    justify-content: center;
+    margin:0;
+    font-size: 12px;
+}

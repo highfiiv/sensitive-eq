@@ -1,0 +1,56 @@
+/* ------------------------------------------------------------------------ *
+    GLOBAL CSS VARIABLES
+    naming: https://medium.com/@amcdnl/theming-angular-with-css-variables-3c78a5b20b24
+* ------------------------------------------------------------------------ */
+:root{
+    --grid-columns: auto-fit;
+
+    // COLORS
+    --primary-color: 33, 150, 243 ; // rgb(33, 150, 243) or #2196f3 - Blue 500 https://material.io/design/color/#tools-for-picking-colors
+    --secondary-color: 245,248,250; //#b3e5fc;
+    --tertiary: 241,249,255;
+    // VARIATIONS
+    --primary-color-dark: 0,93,167;
+
+    --light-gray-bg: 245, 248, 254;
+    --background: 255, 255, 255;
+
+    --border: 50, 50, 50;
+    --border-hover: 214, 214, 214;
+
+    // other disabled colors
+    --disabled-color: 239, 239, 239;
+
+    /* ------------------------------------------------------------------------ *
+        FORM & INPUT COLORS
+    * ------------------------------------------------------------------------ */
+    --field-background: 61, 61, 61;
+    --field-background-focused: 45, 45, 45;
+    --static-border-color: rgba(33, 150, 243, 0.24);
+    --hover-border-color: rgba(33, 150, 243, .87);
+    --focused-border-color: 33, 150, 243;
+
+    // disabled floating-label colors
+    --disabled-border-color: rgba(33, 150, 243, 0.24);
+    --append-prepend-disabled:#d7e9f8;
+    --append-prepend-disabled-text:#7ac4ff;
+
+    /* ------------------------------------------------------------------------ *
+        TYPOGRAPHY
+        https://material.io/guidelines/style/typography.html#typography-other-typographic-guidelines
+    * ------------------------------------------------------------------------ */
+    --sans-serif: Roboto, Arial, 'open sans', 'Helvetica Neue', Helvetica, sans-serif;
+    --heading-text: 115,115,115;
+    --body-text: 32,32,32;
+    --light-text: 128,128,128;
+    --dark-text: 115,115,115;
+    --disabled-text: 128,128,128;
+
+    // TWITTER BRANDED TEXT (light)
+    --twitter-font-stack: "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+    --twitter-heading-text: 20, 23, 26;
+    --twitter-body-text: 20, 23, 26;
+    --twitter-dark-text: 101, 119, 134;
+    --twitter-blue: 27, 149, 224;
+    --twitter-disabled-text: 128,128,128;
+}

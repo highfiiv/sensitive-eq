@@ -1,0 +1,58 @@
+/* ------------------------------------------------------------------------ *
+    COLORS
+    lighten th blue to #087BC5
+    lighten th red/pink to #F29FBD
+
+    BACKGROUNDS
+    card bg #34393E
+    gray scale / matte black bg #222431
+
+    TYPOGRAPHY
+    text white
+    text light gray #808387
+* ------------------------------------------------------------------------ */
+
+/* Styles for users who prefer dark mode at the OS level */
+@media (prefers-color-scheme: dark) {
+    :root {
+        // COLORS
+        --primary-color: 33, 150, 243 ; // rgb(33, 150, 243) or #2196f3 - Blue 500 https://material.io/design/color/#tools-for-picking-colors
+        --secondary-color: 245,248,250; //#b3e5fc;
+        --tertiary: 241,249,255;
+        // VARIATIONS
+        --primary-color-dark: 0,93,167;
+
+        --background: 45 45 45;
+        --border: 50, 50, 50;
+        --dashed-border: 50, 50, 50;
+        --border-hover: 50, 50, 50;
+
+        --dashed-border-hover: 50, 50, 50;
+
+        /* ------------------------------------------------------------------------ *
+            FORM & INPUT COLORS
+        * ------------------------------------------------------------------------ */
+        --static-border-color: rgba(33, 150, 243, .24);
+        --hover-border-color: rgba(33, 150, 243, .87);
+        --focused-border-color: 33, 150, 243;
+        --append-background: rgba(33, 150, 243, .87);
+        --append-prepend-text: 0, 74, 134;
+        // disabled floating-label colors
+        --disabled-border-color: rgba(33, 150, 243, 0.24);
+        --append-prepend-disabled:#2196f36b;
+        --append-prepend-disabled-text:#7ac4ff7a;
+
+        --heading-text: 115,115,115;
+        --body-text: 236 236 236;
+        --light-text: 128,128,128;
+        --dark-text: 115,115,115;
+        --disabled-text: 128,128,128;
+    }
+
+    // Override OS dark mode with light mode styles
+    // if a dark OS user manually chooses light
+    body.light-theme {
+        --text-color: #222;
+        --bkg-color: #fff;
+    }
+}

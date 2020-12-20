@@ -1,0 +1,64 @@
+/* ------------------------------------------------------------------------ *
+    COMPONENT LIST
+    this is for a list of nested components
+* ------------------------------------------------------------------------ */
+$components: 'header';
+$prefix: 'app';
+// Run through each app-^ component element that should be display:grid;
+// @each $component in $components {
+//     #{$prefix}-#{$component}{
+//         display:grid;
+//         grid-column: 1 / -1;
+//     }
+// }
+
+/* ------------------------------------------------------------------------ *
+    PRIMARY COLORS
+    primary, secondary, tertiary, quaternary, quinary, senary, septenary, octonary, nonary, and denary
+
+    #2196F3 = rgba(33, 150, 243, 1)
+* ------------------------------------------------------------------------ */
+$primary-color: #2196f3; // rgb(33, 150, 243) - Blue 500 https://material.io/design/color/#tools-for-picking-colors
+$secondary-color: #f5f8fa; //#b3e5fc;
+$disabled-color: #efefef;
+$tertiary: #F1F9FF;
+
+$pink: #fc73a7;
+
+/* ------------------------------------------------------------------------ *
+    UTILITIES
+* ------------------------------------------------------------------------ */
+$card-divider: #efefef;
+$hr: rgba(0, 0, 0, 0.12);
+$red: #FF8484;
+$green: #80FFA7;
+$active: rgba(33, 150, 243, 0.2);
+$input-border: lighten($primary-color, 35%);
+
+
+/* ------------------------------------------------------------------------ *
+    CHIPS
+* ------------------------------------------------------------------------ */
+$chip: #707070;
+$chip__match: #BCDAFF; // text is darkened
+
+
+
+/* ------------------------------------------------------------------------ *
+    WARNINGS AND STATES
+* ------------------------------------------------------------------------ */
+
+
+/* ------------------------------------------------------------------------ *
+    TYPOGRAPHY
+    https://material.io/guidelines/style/typography.html#typography-other-typographic-guidelines
+* ------------------------------------------------------------------------ */
+$heading-text: #737373;
+
+
+/* ------------------------------------------------------------------------ *
+    FONT STACKS
+* ------------------------------------------------------------------------ */
+$sans-serif: Roboto, Arial, 'open sans', 'Helvetica Neue', Helvetica, sans-serif;
+
+

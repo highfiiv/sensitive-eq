@@ -1,0 +1,5 @@
+<p class="score"><span title="sensitivity">{{percent}}</span> &nbsp;/ <span title="peaking">{{score}}</span></p>
+<form class="range-form" [formGroup]="form" (keydown.enter)="$event.preventDefault()">
+    <input-range formControlName="range"></input-range>
+</form>
+<div class="eqband" [ngStyle]="{'padding-top': peak+'px'}"></div>

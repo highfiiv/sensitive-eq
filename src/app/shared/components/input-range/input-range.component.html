@@ -1,0 +1,14 @@
+<label class="range__label">
+    <input type="range"
+        [id]="forID"
+        class="range__input"
+        [max]="max"
+        [step]="step"
+        (touch)="onTouched()"
+        [ngModel]="value"
+        (ngModelChange)="onInput($event)"
+        [name]="name"
+        [disabled]="disabled"
+        tabindex="0"
+        orient="vertical">
+</label>

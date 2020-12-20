@@ -1,0 +1,24 @@
+/* ------------------------------------------------------------------------ *
+    Base Styles
+* ------------------------------------------------------------------------ */
+body{
+    background: rgb(var(--background));
+}
+
+.navigation,
+aside {
+    background: rgb(var(--background));
+}
+aside{
+    flex-flow: column;
+}
+/* ------------------------------------------------------------------------ *
+    BASE LAYOUT
+* ------------------------------------------------------------------------ */
+app-root {
+    min-height: 100vh;
+    min-width: 100%; // helps smooth loading
+    align-content: flex-start;
+}
+
+
