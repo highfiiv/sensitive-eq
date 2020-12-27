@@ -1,0 +1,258 @@
+/* ------------------------------------------------------------------------ *
+    COMPONENT LIST
+    this is for a list of nested components
+* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ *
+    PRIMARY COLORS
+    primary, secondary, tertiary, quaternary, quinary, senary, septenary, octonary, nonary, and denary
+
+    #2196F3 = rgba(33, 150, 243, 1)
+* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ *
+    UTILITIES
+* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ *
+    CHIPS
+* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ *
+    WARNINGS AND STATES
+* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ *
+    TYPOGRAPHY
+    https://material.io/guidelines/style/typography.html#typography-other-typographic-guidelines
+* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ *
+    FONT STACKS
+* ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ *
+    GLOBAL CSS VARIABLES
+    naming: https://medium.com/@amcdnl/theming-angular-with-css-variables-3c78a5b20b24
+* ------------------------------------------------------------------------ */
+:root {
+  --grid-columns: auto-fit;
+  --primary-color: 33, 150, 243 ;
+  --secondary-color: 245,248,250;
+  --tertiary: 241,249,255;
+  --primary-color-dark: 0,93,167;
+  --light-gray-bg: 245, 248, 254;
+  --background: 255, 255, 255;
+  --border: 50, 50, 50;
+  --border-hover: 214, 214, 214;
+  --disabled-color: 239, 239, 239;
+  /* ------------------------------------------------------------------------ *
+      FORM & INPUT COLORS
+  * ------------------------------------------------------------------------ */
+  --field-background: 61, 61, 61;
+  --field-background-focused: 45, 45, 45;
+  --static-border-color: rgba(33, 150, 243, 0.24);
+  --hover-border-color: rgba(33, 150, 243, .87);
+  --focused-border-color: 33, 150, 243;
+  --disabled-border-color: rgba(33, 150, 243, 0.24);
+  --append-prepend-disabled:#d7e9f8;
+  --append-prepend-disabled-text:#7ac4ff;
+  /* ------------------------------------------------------------------------ *
+      TYPOGRAPHY
+      https://material.io/guidelines/style/typography.html#typography-other-typographic-guidelines
+  * ------------------------------------------------------------------------ */
+  --sans-serif: Roboto, Arial, "open sans", "Helvetica Neue", Helvetica, sans-serif;
+  --heading-text: 115,115,115;
+  --body-text: 32,32,32;
+  --light-text: 128,128,128;
+  --dark-text: 115,115,115;
+  --disabled-text: 128,128,128;
+  --twitter-font-stack: "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  --twitter-heading-text: 20, 23, 26;
+  --twitter-body-text: 20, 23, 26;
+  --twitter-dark-text: 101, 119, 134;
+  --twitter-blue: 27, 149, 224;
+  --twitter-disabled-text: 128,128,128;
+}
+* {
+  display: flex;
+  flex-flow: row wrap;
+}
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+html,
+body {
+  flex: 100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+head,
+style,
+link,
+title,
+script,
+router-outlet {
+  display: none;
+}
+body,
+div,
+ol,
+ul,
+li,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+input,
+textarea,
+button {
+  font-family: Roboto, Arial, "open sans", "Helvetica Neue", Helvetica, sans-serif;
+  font-size-adjust: auto;
+  font-weight: normal;
+  font-size: 100%;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1.2;
+  list-style: none;
+  list-style-type: none;
+  color: rgb(var(--body-text));
+}
+body:focus,
+div:focus,
+ol:focus,
+ul:focus,
+li:focus,
+a:focus,
+h1:focus,
+h2:focus,
+h3:focus,
+h4:focus,
+h5:focus,
+h6:focus,
+form:focus,
+fieldset:focus,
+input:focus,
+textarea:focus,
+button:focus {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+hr {
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #cccccc;
+  margin: 1em 0;
+  padding: 0;
+}
+textarea,
+select,
+input,
+button,
+label {
+  outline: none;
+  -webkit-user-select: none;
+          user-select: none;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  border: none;
+  background-color: unset;
+  font-family: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+}
+/* ------------------------------------------------------------------------ *
+    Base Styles
+* ------------------------------------------------------------------------ */
+body {
+  background: rgb(var(--background));
+}
+.navigation,
+aside {
+  background: rgb(var(--background));
+}
+aside {
+  flex-flow: column;
+}
+/* ------------------------------------------------------------------------ *
+    BASE LAYOUT
+* ------------------------------------------------------------------------ */
+app-root {
+  min-height: 100vh;
+  min-width: 100%;
+  align-content: flex-start;
+}
+@media (prefers-color-scheme: dark) {
+  /* ------------------------------------------------------------------------ *
+      COLORS
+      lighten th blue to #087BC5
+      lighten th red/pink to #F29FBD
+
+      BACKGROUNDS
+      card bg #34393E
+      gray scale / matte black bg #222431
+
+      TYPOGRAPHY
+      text white
+      text light gray #808387
+  * ------------------------------------------------------------------------ */
+  /* Styles for users who prefer dark mode at the OS level */
+}
+@media (prefers-color-scheme: dark) and (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: 33, 150, 243 ;
+    --secondary-color: 245,248,250;
+    --tertiary: 241,249,255;
+    --primary-color-dark: 0,93,167;
+    --background: 45 45 45;
+    --border: 50, 50, 50;
+    --dashed-border: 50, 50, 50;
+    --border-hover: 50, 50, 50;
+    --dashed-border-hover: 50, 50, 50;
+    /* ------------------------------------------------------------------------ *
+        FORM & INPUT COLORS
+    * ------------------------------------------------------------------------ */
+    --static-border-color: rgba(33, 150, 243, .24);
+    --hover-border-color: rgba(33, 150, 243, .87);
+    --focused-border-color: 33, 150, 243;
+    --append-background: rgba(33, 150, 243, .87);
+    --append-prepend-text: 0, 74, 134;
+    --disabled-border-color: rgba(33, 150, 243, 0.24);
+    --append-prepend-disabled:#2196f36b;
+    --append-prepend-disabled-text:#7ac4ff7a;
+    --heading-text: 115,115,115;
+    --body-text: 236 236 236;
+    --light-text: 128,128,128;
+    --dark-text: 115,115,115;
+    --disabled-text: 128,128,128;
+  }
+
+  body.light-theme {
+    --text-color: #222;
+    --bkg-color: #fff;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map*/

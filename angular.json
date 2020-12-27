@@ -33,7 +33,9 @@
                         "styles": [
                             "scss/styles.scss"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "node_modules/buttplug-wasm/dist/web/0.buttplug.js"
+                        ]
                     },
                     "configurations": {
                         "production": {
@@ -66,18 +68,7 @@
                     }
                 },
                 "serve": {
-                    "builder": "@angular-devkit/build-angular:dev-server",
-                    "options": {
-                        "browserTarget": "sysaudio:build"
-                    },
-                    "configurations": {
-                        "production": {
-                            "browserTarget": "sysaudio:build:production"
-                        }
-                    }
-                },
-                "customize": {
-                    "builder": "@angular-builders/custom-webpack:serve",
+                    "builder": "@angular-builders/custom-webpack:dev-server",
                     "options": {
                         "customWebpackConfig": {
                             "path": "./custom-webpack-serve.config.js",
@@ -86,9 +77,12 @@
                             },
                             "replaceDuplicatePlugins": true
                         },
-                        "outputPath": "dist/sound-server",
-                        "main": "src/main.server.ts",
-                        "tsConfig": "src/tsconfig.server.json"
+                        "browserTarget": "sysaudio:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "sysaudio:build:production"
+                        }
                     }
                 },
                 "extract-i18n": {
@@ -111,7 +105,9 @@
                         "styles": [
                             "scss/styles.scss"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "src/assets/libs/timeliner.min.js"
+                        ]
                     }
                 },
                 "lint": {

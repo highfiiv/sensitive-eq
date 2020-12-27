@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
-import { IntefaceService } from '@shared/services/inteface.service';
 import { WasmService } from '@shared/services/wasm.service';
 
 @Component({
@@ -8,11 +7,16 @@ import { WasmService } from '@shared/services/wasm.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
-    constructor(
-        private intefaceService:IntefaceService,
-        private wasmService: WasmService
-    ) {}
+export class AppComponent implements OnInit, AfterViewInit {
+
+    constructor(private wasmService: WasmService) {
+
+    }
 
     public ngOnInit(): void {}
+
+    public ngAfterViewInit(){
+        this.wasmService.runEmbeddedConnectionExample();
+    }
+
 }

@@ -9,20 +9,25 @@ import { SysSoundComponent } from './sys-sound/sys-sound.component';
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
 import { BandComponent } from './shared/components/band/band.component';
 import { InputRangeComponent } from '@shared/components/input-range/input-range.component';
+import { TimelineComponent } from './timeline/timeline.component';
+
+// import * as Timeline from 'src/assets/libs/timeliner.min.js';
 
 @NgModule({
     declarations: [
         AppComponent,
         SysSoundComponent,
         BandComponent,
-        InputRangeComponent
+        InputRangeComponent,
+        TimelineComponent
     ],
     imports: [
         BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        RouterModule
+        RouterModule,
+        // Timeline
     ],
     providers: [
         ...WINDOW_PROVIDERS
