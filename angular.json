@@ -40,9 +40,6 @@
                         ],
                         "styles": [
                             "scss/styles.scss"
-                        ],
-                        "scripts": [
-                            "node_modules/buttplug/dist/web/buttplug.min.js"
                         ]
                     },
                     "configurations": {
