@@ -9,14 +9,12 @@ import { WasmService } from '@shared/services/wasm.service';
 })
 export class AppComponent implements OnInit, AfterViewInit {
 
-    constructor(private wasmService: WasmService) {
-
-    }
+    constructor(private wasmService: WasmService) {}
 
     public ngOnInit(): void {}
 
     public ngAfterViewInit(){
-        this.wasmService.runEmbeddedConnectionExample();
+        // this.wasmService.runEmbeddedConnectionExample();
     }
 
 }

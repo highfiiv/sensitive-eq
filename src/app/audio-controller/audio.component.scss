@@ -1,0 +1,36 @@
+:host {
+    padding:10px;
+}
+select{
+    margin: 0 3px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+/* ------------------------------------------------------------------------ *
+    THE EQUILIZER
+* ------------------------------------------------------------------------ */
+.eq-wrapper{
+    position:absolute;
+    flex-flow: column;
+    bottom: 10vh;
+    width:100%;
+    align-items: center;
+
+    transform: scale(.5);
+}
+.eqbands{
+    position:relative;
+    align-items: flex-end;
+    width:100%;
+    justify-content: space-around;
+}
+
+.freqs{
+    width:100%;
+}
+.freq{
+    flex:1;
+    justify-content: center;
+    font-size: 11px;
+}

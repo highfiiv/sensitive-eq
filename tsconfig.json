@@ -6,6 +6,9 @@
         "paths": {
             "@shared/*": [
                 "./src/app/shared/*"
+            ],
+            "@common": [
+                "./common"
             ]
         },
         "outDir": "./dist/out-tsc",
@@ -25,6 +28,9 @@
         "lib": [
             "es2020",
             "dom"
+        ],
+        "typeRoots": [
+            "./src/assets/libs/timeliner.d.ts"
         ]
     },
     "angularCompilerOptions": {

@@ -18,8 +18,16 @@
             "prefix": "app",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
+                    "builder": "@angular-builders/custom-webpack:browser",
                     "options": {
+                        "customWebpackConfig": {
+                            "path": "./custom-webpack-build.config.ts",
+                            "mergeStrategies": {
+                                "module.rules": "prepend"
+                            },
+                            "replaceDuplicatePlugins": true
+                        },
+                        "indexTransform": "./custom-webpack-html.ts",
                         "outputPath": "dist/sysaudio",
                         "index": "src/index.html",
                         "main": "src/main.ts",
@@ -34,7 +42,7 @@
                             "scss/styles.scss"
                         ],
                         "scripts": [
-                            "node_modules/buttplug-wasm/dist/web/0.buttplug.js"
+                            "node_modules/buttplug/dist/web/buttplug.min.js"
                         ]
                     },
                     "configurations": {
@@ -68,15 +76,8 @@
                     }
                 },
                 "serve": {
-                    "builder": "@angular-builders/custom-webpack:dev-server",
+                    "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "customWebpackConfig": {
-                            "path": "./custom-webpack-serve.config.js",
-                            "mergeStrategies": {
-                                "module.rules": "prepend"
-                            },
-                            "replaceDuplicatePlugins": true
-                        },
                         "browserTarget": "sysaudio:build"
                     },
                     "configurations": {
@@ -105,9 +106,7 @@
                         "styles": [
                             "scss/styles.scss"
                         ],
-                        "scripts": [
-                            "src/assets/libs/timeliner.min.js"
-                        ]
+                        "scripts": []
                     }
                 },
                 "lint": {

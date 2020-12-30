@@ -4,22 +4,31 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AppComponent } from './app.component';
-import { SysSoundComponent } from './sys-sound/sys-sound.component';
-import { WINDOW_PROVIDERS } from './shared/services/window.service';
-import { BandComponent } from './shared/components/band/band.component';
-import { InputRangeComponent } from '@shared/components/input-range/input-range.component';
-import { TimelineComponent } from './timeline/timeline.component';
+// import { NgxVideoTimelineModule } from 'ngx-video-timeline';
 
-// import * as Timeline from 'src/assets/libs/timeliner.min.js';
+import { AppComponent } from './app.component';
+import { AudioComponent } from './audio-controller/audio.component';
+import { TimelineComponent } from './timeline-controller/timeline.component';
+import { VideoComponent } from './video-controller/video.component';
+import { NavigationComponent } from './navigation/navigation.component';
+
+import { WINDOW_PROVIDERS } from '@shared/services/window.service';
+import { BandComponent } from '@shared/components/band/band.component';
+import { InputRangeComponent } from '@shared/components/input-range/input-range.component';
+import { InputUploadComponent } from '@shared/components/input-upload/upload.component';
+import { AudioDevicesComponent } from './shared/components/audio-devices/audio-devices.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        SysSoundComponent,
+        AudioComponent,
         BandComponent,
+        TimelineComponent,
+        VideoComponent,
+        NavigationComponent,
         InputRangeComponent,
-        TimelineComponent
+        InputUploadComponent,
+        AudioDevicesComponent
     ],
     imports: [
         BrowserModule,
@@ -27,7 +36,12 @@ import { TimelineComponent } from './timeline/timeline.component';
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
+        // NgxVideoTimelineModule
         // Timeline
+    ],
+    exports:[
+        InputRangeComponent,
+        InputUploadComponent
     ],
     providers: [
         ...WINDOW_PROVIDERS

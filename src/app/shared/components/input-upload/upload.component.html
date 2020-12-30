@@ -1,0 +1,15 @@
+<span class="upload__icon icon"
+    tabindex="0"
+    (click)="fileInput.click()"
+    (keydown.enter)="fileInput.click()">
+    <img src="./assets/icons/movie.svg" alt="upload video"/>
+</span>
+
+<div class="drag__area"
+    tabindex="0"
+    (click)="fileInput.click()"
+    (keydown.enter)="fileInput.click()">
+    <span class="drag__icon">upload video</span>
+    <!-- <img *ngIf="show" [src]="show" alt="changable image" /> -->
+</div>
+<input hidden #fileInput (change)="fileChange($event)" type="file" accept="video/*" capture="camera">
