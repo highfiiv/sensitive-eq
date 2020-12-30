@@ -20,8 +20,8 @@ export class WasmService {
         await Buttplug.buttplugInit();
         this.client = new Buttplug.ButtplugClient("Sensitive Eq Client");
 
-        let websocket_connector = new Buttplug.ButtplugWebsocketConnectorOptions();
-        websocket_connector.Address = "ws://localhost:12345";
+        let websocket_connector = new Buttplug.ButtplugEmbeddedConnectorOptions();
+        // websocket_connector.Address = "ws://localhost:12345";
 
         //await this.client.connect(new Buttplug.ButtplugEmbeddedConnectorOptions());
         await this.client.connect(websocket_connector);
