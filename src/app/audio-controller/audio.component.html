@@ -1,11 +1,3 @@
-<img *ngIf="!playing" src="./assets/icons/volume_off.svg" alt="stop audio feed" (click)="play()"/>
-<img *ngIf="playing" src="./assets/icons/volume_on.svg" alt="play audio feed" (click)="stop()"/>
-
-<select name="devices" (change)="onSelect($event.target)">
-    <option [value]="false">No audio</option>
-    <option *ngFor="let device of devices;" [value]="device.deviceId">{{device.label}}</option>
-</select>
-
 <div class="eq-wrapper" *ngIf="playing">
     <div class="eqbands">
         <ng-container *ngFor="let band of bands; index as i; trackBy: trackByFn;">

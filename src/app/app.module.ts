@@ -17,6 +17,7 @@ import { BandComponent } from '@shared/components/band/band.component';
 import { InputRangeComponent } from '@shared/components/input-range/input-range.component';
 import { InputUploadComponent } from '@shared/components/input-upload/upload.component';
 import { AudioDevicesComponent } from './shared/components/audio-devices/audio-devices.component';
+import { BluetoothComponent } from './shared/components/bluetooth/bluetooth.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { AudioDevicesComponent } from './shared/components/audio-devices/audio-d
         NavigationComponent,
         InputRangeComponent,
         InputUploadComponent,
-        AudioDevicesComponent
+        AudioDevicesComponent,
+        BluetoothComponent
     ],
     imports: [
         BrowserModule,

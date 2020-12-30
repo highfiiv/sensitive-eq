@@ -17,7 +17,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
         this.syncService.getVideo().pipe(
             takeUntil(this._ngUnsubscribe)
         ).subscribe((res:any) => {
-            console.log(res);
+            // console.log(res);
         });
     }
 

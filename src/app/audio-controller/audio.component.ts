@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { SyncService } from '@shared/services/sync.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+import { SyncService } from '@shared/services/sync.service';
 
 @Component({
     selector: 'audio-controller',
@@ -19,7 +20,6 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
     private _audioContext = new AudioContext();
     private _analyser = this._audioContext.createAnalyser();
 
-    public devices: any[];
     public bands: { dB?: number, sensitivity?: number }[] = []; // eq band objects for element height etc
     public freqs: number[];
     public playing = false;
@@ -31,20 +31,21 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
         this.syncService.audioStreamActive().pipe(
             takeUntil(this._ngUnsubscribe)
         ).subscribe((res:any) => {
-            console.log(res);
             this.playing = res;
+        });
+
+        // subscribe to audio device selection
+        this.syncService.getAudioDevice().pipe(
+            takeUntil(this._ngUnsubscribe)
+        ).subscribe((res:any) => {
+            if (res) {
+                this._audioDeviceId = res;
+                this.play(this._audioDeviceId);
+            }
         });
     }
 
-    public ngAfterViewInit(): void {
-        // get and list the devices for selection
-        navigator.mediaDevices.enumerateDevices().then((devices: MediaDeviceInfo[]) => {
-            this.devices = devices.filter(device => device.kind == "audiooutput");
-        })
-        .catch(function (err) {
-            console.log(err.name + ": " + err.message);
-        });
-    }
+    public ngAfterViewInit(): void {}
 
     /* ------------------------------------------------------------------------ *
         When sensitivity scores exist this method:
@@ -137,11 +138,11 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // PRESS play button (or select an audio device)
-    public play() {
-        console.log('play');
+    public play(audioDeviceId: any) {
         navigator.mediaDevices.getUserMedia({
-            audio: { deviceId: this._audioDeviceId ? { exact: this._audioDeviceId } : undefined }
+            audio: { deviceId: audioDeviceId ? { exact: audioDeviceId } : undefined }
         }).then((stream: MediaStream) => {
+            console.log(stream);
             this.connectStream(stream);
             this.frameLooper();
         });
@@ -150,15 +151,7 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
     public stop() {
         clearInterval(this._intervalID);
         this.playing = false;
-    }
-    public onSelect(target:any){
-        const elm = target as HTMLSelectElement;
-        this._audioDeviceId = elm.value;
-        if (this._audioDeviceId !== 'false') {
-            this.play();
-        } else {
-            this.stop();
-        }
+        this.syncService.stopAudioStream();
     }
 
     // optimize ngFor

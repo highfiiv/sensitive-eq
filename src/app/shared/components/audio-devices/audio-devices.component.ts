@@ -22,18 +22,21 @@ export class AudioDevicesComponent implements OnInit, AfterViewInit, OnDestroy {
         this.syncService.audioStreamActive().pipe(
             takeUntil(this._ngUnsubscribe)
         ).subscribe((res:any) => {
-            console.log(res);
             this.playing = res;
+        });
+
+        // subscribe to list of audio devices available
+        this.syncService.getAudioDevices().pipe(
+            takeUntil(this._ngUnsubscribe)
+        ).subscribe((res:any) => {
+            this.devices = res;
         });
     }
 
-    public ngAfterViewInit(): void {
-        this.syncService.getDevices();
-    }
+    public ngAfterViewInit(): void {}
 
     // PRESS play button (or select an audio device)
     public play() {
-        console.log('play');
         this.syncService.playAudioStream();
     }
 
@@ -44,9 +47,9 @@ export class AudioDevicesComponent implements OnInit, AfterViewInit, OnDestroy {
     public onSelect(target:any){
         const elm = target as HTMLSelectElement;
         if (elm.value !== 'false') {
-            this.play();
+            this.syncService.activateAudioDevice(elm.value);
         } else {
-            this.stop();
+            this.syncService.stopAudioStream();
         }
     }
 

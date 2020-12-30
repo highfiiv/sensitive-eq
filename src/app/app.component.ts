@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
-import { WasmService } from '@shared/services/wasm.service';
+import { SyncService } from '@shared/services/sync.service';
 
 @Component({
     selector: 'app-root',
@@ -9,12 +9,12 @@ import { WasmService } from '@shared/services/wasm.service';
 })
 export class AppComponent implements OnInit, AfterViewInit {
 
-    constructor(private wasmService: WasmService) {}
+    constructor(private syncService: SyncService) {}
 
     public ngOnInit(): void {}
 
     public ngAfterViewInit(){
-        // this.wasmService.runEmbeddedConnectionExample();
+        this.syncService.setAudioDevices();
     }
 
 }

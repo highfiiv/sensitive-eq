@@ -27,7 +27,7 @@ export class VideoComponent implements OnInit, OnDestroy {
             if (file) {
                 console.log(file);
                 // (this.video as ElementRef).nativeElement.src = file.url; // unsafe, use binding
-                // this.safeSrc = file.url; // broken: loads in blob but no playsies
+                this.safeSrc = file.url; // broken: loads in blob but no playsies
 
                 // second attempt
                 // let reader = new FileReader();
