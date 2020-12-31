@@ -12,6 +12,24 @@ aside {
 aside{
     flex-flow: column;
 }
+
+input-upload,
+select{
+    width:100%;
+    max-width: 200px;
+    margin: 0 3px;
+    padding: 5px;
+}
+select{
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.icon{
+    cursor: pointer;
+}
+
+
 /* ------------------------------------------------------------------------ *
     BASE LAYOUT
 * ------------------------------------------------------------------------ */
@@ -21,6 +39,34 @@ app-root {
     align-content: flex-start;
 }
 
-.icon{
-    cursor: pointer;
+/* ------------------------------------------------------------------------ *
+    VIDEO
+* ------------------------------------------------------------------------ */
+video-controller{
+    display:none;
+    &.active{
+        display:flex;
+    }
 }
+
+
+/* ------------------------------------------------------------------------ *
+    AUDIO
+* ------------------------------------------------------------------------ */
+audio-controller{
+    position:absolute;
+    top: 0;
+    right:0;
+    bottom:0;
+    left:0;
+    margin: auto;
+    justify-content: center;
+}
+
+
+
+
+
+
+
+

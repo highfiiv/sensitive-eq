@@ -1,8 +1,11 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { SyncService } from '@shared/services/sync.service';
+import { WasmService } from '@shared/services/wasm.service';
+import * as Buttplug from 'buttplug';
 
 @Component({
     selector: 'audio-controller',
@@ -14,46 +17,83 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
     private _intervalID: any; // AnimationFrame ID
     private _source: any; // eventual stream source
     private _fbc: any; // frequencyBinCount
-
-    private _data: Uint8Array; // final audio data in the standard format
     private _audioDeviceId: string; // MediaDeviceInfo;
     private _audioContext = new AudioContext();
     private _analyser = this._audioContext.createAnalyser();
+    private _data: Uint8Array; // final audio data in the standard format
+
+    private _activeBTDevices = [];
 
     public bands: { dB?: number, sensitivity?: number }[] = []; // eq band objects for element height etc
     public freqs: number[];
     public playing = false;
 
-    constructor(private syncService: SyncService) { }
+    public transparency = 100;
+    public transparencyForm = <FormGroup>this.fb.group({
+        transparency: this.fb.control(100)
+    });
+
+    constructor(
+        private syncService: SyncService,
+        private wasmService: WasmService,
+        private fb: FormBuilder
+    ) { }
 
     public ngOnInit(): void {
-        // subscribe to play/stop
+        // subscribe to audio device play/stop
         this.syncService.audioStreamActive().pipe(
             takeUntil(this._ngUnsubscribe)
-        ).subscribe((res:any) => {
+        ).subscribe((res: any) => {
             this.playing = res;
         });
 
-        // subscribe to audio device selection
+        // subscribe to audio device selection (the select dropdown in main nav)
+        // controlled by shared/components/audio-devices/
         this.syncService.getAudioDevice().pipe(
             takeUntil(this._ngUnsubscribe)
-        ).subscribe((res:any) => {
+        ).subscribe((res: any) => {
             if (res) {
                 this._audioDeviceId = res;
                 this.play(this._audioDeviceId);
             }
         });
+
+        // FORM: EQ Visibility
+        this.transparencyForm.controls.transparency.valueChanges.pipe(
+            takeUntil(this._ngUnsubscribe)
+        ).subscribe((val: any) => {
+            this.transparency = val;
+        });
+
+        this.wasmService.getActiveBTDevices().pipe(
+            takeUntil(this._ngUnsubscribe)
+        ).subscribe((res: any) => {
+            console.log(res);
+            this._activeBTDevices = res;
+        });
     }
 
-    public ngAfterViewInit(): void {}
+    public ngAfterViewInit(): void { }
 
     /* ------------------------------------------------------------------------ *
+        https://github.com/buttplugio/buttplug-developer-guide/blob/master/examples/javascript/device-control-example.js
         When sensitivity scores exist this method:
-        - Makes a request of some kind
-        - Probably want to debounce this
+        - Probably want to debounce this or turn down the times-per-second in frameLooper()
     * ------------------------------------------------------------------------ */
-    private sensitivityRequest(amount:number){
-        // console.log(amount);
+    private async sensitivityRequest(amount: number) {
+        // this.wasmService.message(amount); may be able to control it from here
+        if (this._activeBTDevices.length > 0) {
+            for (let i = 0, j = this._activeBTDevices.length; i < j; i++) {
+                try {
+                    await this._activeBTDevices[i].vibrate(1.0);
+                } catch (e) {
+                    console.log(e);
+                    if (e instanceof Buttplug.ButtplugDeviceError) {
+                        console.log("got a device error!");
+                    }
+                }
+            }
+        }
     }
 
     // Control the view
@@ -63,7 +103,7 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
         // how many values from analyser (the "buffer" size)
         this._fbc = this._analyser.frequencyBinCount;
 
-        const time = 1000 / 12; // 30 or 60 times per second
+        const time = 1000 / 12; // 12 times per second
         this._intervalID = setInterval(() => {
             // frequency data comes as integers on a scale from 0 to 255
             this._data = new Uint8Array(this._analyser.frequencyBinCount);
@@ -142,11 +182,14 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
         navigator.mediaDevices.getUserMedia({
             audio: { deviceId: audioDeviceId ? { exact: audioDeviceId } : undefined }
         }).then((stream: MediaStream) => {
-            console.log(stream);
             this.connectStream(stream);
             this.frameLooper();
-        });
-        this.playing = true;
+            this.playing = true;
+        })
+            .catch(e => {
+                console.log("catch", e.reason);
+                this.playing = false;
+            });
     }
     public stop() {
         clearInterval(this._intervalID);

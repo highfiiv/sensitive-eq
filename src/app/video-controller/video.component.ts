@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SafeUrl } from "@angular/platform-browser";
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -13,7 +13,9 @@ import { IFile } from '@common';
 })
 export class VideoComponent implements OnInit, OnDestroy {
     private _ngUnsubscribe: Subject<void> = new Subject<void>();
+
     @ViewChild('video', { static: true }) private video: ElementRef;
+    @HostBinding('class.active') active: boolean = false;
 
     public safeSrc: SafeUrl;
     public mediaStream = new MediaStream();
@@ -26,16 +28,21 @@ export class VideoComponent implements OnInit, OnDestroy {
         ).subscribe((file: IFile) => {
             if (file) {
                 console.log(file);
+                this.active = true; // display video player
+
                 // (this.video as ElementRef).nativeElement.src = file.url; // unsafe, use binding
                 this.safeSrc = file.url; // broken: loads in blob but no playsies
 
-                // second attempt
+                // second attempt = failsies
                 // let reader = new FileReader();
                 // reader.readAsDataURL(file.file);
                 // this.safeSrc = reader.result;
 
                 // play when a valid src is added
+
                 (this.video as ElementRef).nativeElement.play = true;
+            } else {
+                this.active = false; // hide video player
             }
         });
     }

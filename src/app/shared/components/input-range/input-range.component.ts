@@ -18,6 +18,7 @@ export class InputRangeComponent extends BaseControlValueAccessor<any> implement
     @Input() name: string = '';
     @Input() forID: string; // id value to match a parent label
     @Input() max: number = 255;
+    @Input() min: number = 0;
     @Input() step: number = 1;
     @Input() disabled = false;
 

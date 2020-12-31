@@ -1,9 +1,9 @@
-<img class="icon" src="./assets/icons/bluetooth.svg" alt="connect bluetooth icon" (click)="connectBT()"/>
-<!-- <img src="./assets/icons/bluetooth_connected.svg" alt="play audio feed" (click)="connectBT()"/>
-<img src="./assets/icons/bluetooth_disabled.svg" alt="play audio feed" (click)="connectBT()"/>
-<img src="./assets/icons/bluetooth_searching.svg" alt="play audio feed" (click)="connectBT()"/> -->
+<img *ngIf="!ready" class="icon" src="./assets/icons/bluetooth_disabled.svg" alt="disconnected" title="disconnected" (click)="connectBT()"/>
+<img *ngIf="ready" class="icon" src="./assets/icons/bluetooth.svg" alt="connect bluetooth" title="scan for devices" (click)="scanBT()"/>
+<img *ngIf="btSearching" class="icon" src="./assets/icons/bluetooth_searching.svg" alt="searching devices" title="searching devices" />
+<img *ngIf="btConnected" class="icon" src="./assets/icons/bluetooth_connected.svg" alt="device connected" title="device connected" (click)="disconnectBT()"/>
 
 <select name="devices" (change)="onSelect($event.target)">
-    <option [value]="false">No haptic</option>
+    <option [value]="false">No device</option>
     <option *ngFor="let device of devices;" [value]="device.deviceId">{{device.label}}</option>
 </select>

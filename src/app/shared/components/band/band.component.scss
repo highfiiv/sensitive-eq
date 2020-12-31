@@ -13,7 +13,7 @@
     position: relative;
     width:calc(1vw);
     height: 0px;
-    background: rgb(255, 255, 255);
+    background: rgb(0, 0, 0);
 }
 
 .range-form{
@@ -27,7 +27,7 @@ input-range{
 }
 .score{
     position:absolute;
-    top: -34px;
+    top: -28px;
     width:100%;
     justify-content: center;
     margin:0;
