@@ -20,21 +20,14 @@ export class WasmService {
         // debugging and logging device info
         this._BTDevices$.subscribe((res: any) => {
             console.log(res);
-            for ( let i = 0, j = res.length; i < j; i++ ) {
-                console.log("{} supports these messages:", res[i].name);
-                for ( let i = 0, j = res[i].allowed_messages.length; i < j; i++ ) {
-                    console.log(res[i].allowed_messages[i]);
+            if (res.length) {
+                for ( let i = 0, j = res.length; i < j; i++ ) {
+                    console.log("{} supports these messages:", res[i]);
+                    for ( let ii = 0, jj = res[i].AllowedMessages.length; ii < jj; ii++ ) {
+                        console.log(res[i].AllowedMessages[ii]);
+                    }
                 }
             }
-
-            // for device in res {
-            //     for (r#type, attributes) in device.allowed_messages {
-            //         println!("- {}", r#type);
-            //         if let Some(count) = attributes.feature_count {
-            //             println!(" - Features: {}", count);
-            //         }
-            //     }
-            // }
         });
     }
 
@@ -78,9 +71,8 @@ export class WasmService {
     // "deviceadded" events on successful connect.
     public deviceListener() {
         this._client.addListener("deviceadded", (device) => {
-            console.log(`Device Connected: ${device.Name}`);
-            console.log("Client currently knows about these devices:");
-            this._client.Devices.forEach((device) => this._BTDevices$.next(this._BTDevices$.getValue().concat([device.Name])));
+            console.log(device);
+            this._client.Devices.forEach((device) => this._BTDevices$.next(this._BTDevices$.getValue().concat([device])));
         });
         this._client.addListener("deviceremoved", (device) =>
             this._BTDevices$
@@ -111,14 +103,9 @@ export class WasmService {
             });
     }
 
-    // subscribe to ALL found bluetooth devices
-    public getBTDevices(): Observable<Array<any>> {
+    // subscribe to ALL paired bluetooth devices
+    public getActiveBTDevices(): Observable<Array<any>> {
         return this._BTDevices$.pipe();
-    }
-
-    // subscribe to device selection(s) / unselection(s)
-    public getActiveBTDevices(): Observable<string> {
-        return this._BTDevice$.pipe();
     }
 
     /* ------------------------------------------------------------------------ *

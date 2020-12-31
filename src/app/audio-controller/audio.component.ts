@@ -81,10 +81,11 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
         - Probably want to debounce this or turn down the times-per-second in frameLooper()
     * ------------------------------------------------------------------------ */
     private async sensitivityRequest(amount: number) {
-        // this.wasmService.message(amount); may be able to control it from here
-        if (this._activeBTDevices.length > 0) {
+        // console.log(this._activeBTDevices);
+        if (this._activeBTDevices && this._activeBTDevices.length > 0) {
             for (let i = 0, j = this._activeBTDevices.length; i < j; i++) {
                 try {
+                    console.log(this._activeBTDevices[i]);
                     await this._activeBTDevices[i].vibrate(1.0);
                 } catch (e) {
                     console.log(e);
@@ -125,7 +126,6 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
                 // SENSITIVITY SCORE 0 - 255
                 // current dB is within how much of the sensitivity range
                 const ratio = this.bands[i].dB - this.bands[i].sensitivity;
-                // console.log(ratio);
                 if (ratio >= 0) {
                     this.sensitivityRequest(ratio);
                 }
