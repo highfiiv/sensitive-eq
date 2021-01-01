@@ -63,9 +63,10 @@ export class BluetoothComponent implements OnInit, OnDestroy {
     public disconnectBT() {
         this.wasmService.stopScanning();
     }
-    public onSelect(e) {
-        console.log(e);
-    }
+    // native browser Bluetooth pairing basically handles this
+    // public onSelect(e) {
+    //     console.log(e);
+    // }
 
     public ngOnDestroy(): void {
         this._ngUnsubscribe.next();

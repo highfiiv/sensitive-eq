@@ -68,7 +68,6 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
         this.wasmService.getActiveBTDevices().pipe(
             takeUntil(this._ngUnsubscribe)
         ).subscribe((res: any) => {
-            console.log(res);
             this._activeBTDevices = res;
         });
     }
@@ -81,14 +80,11 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
         - Probably want to debounce this or turn down the times-per-second in frameLooper()
     * ------------------------------------------------------------------------ */
     private async sensitivityRequest(amount: number) {
-        // console.log(this._activeBTDevices);
         if (this._activeBTDevices && this._activeBTDevices.length > 0) {
             for (let i = 0, j = this._activeBTDevices.length; i < j; i++) {
                 try {
-                    console.log(this._activeBTDevices[i]);
-                    await this._activeBTDevices[i].vibrate(1.0);
+                    await this._activeBTDevices[i].vibrate(amount / 100);
                 } catch (e) {
-                    console.log(e);
                     if (e instanceof Buttplug.ButtplugDeviceError) {
                         console.log("got a device error!");
                     }

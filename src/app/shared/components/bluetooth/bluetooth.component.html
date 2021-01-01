@@ -3,7 +3,7 @@
 <img *ngIf="btSearching" class="icon" src="./assets/icons/bluetooth_searching.svg" alt="searching devices" title="searching devices" />
 <img *ngIf="btConnected" class="icon" src="./assets/icons/bluetooth_connected.svg" alt="device connected" title="device connected" (click)="disconnectBT()"/>
 
-<select name="devices" (change)="onSelect($event.target)">
+<!-- <select name="devices" (change)="onSelect($event.target)">
     <option [value]="false">No device</option>
     <option *ngFor="let device of devices;" [value]="device.deviceId">{{device.label}}</option>
-</select>
+</select> -->

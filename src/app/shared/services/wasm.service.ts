@@ -11,7 +11,6 @@ export class WasmService {
     private _wasmReady$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _client: Buttplug.ButtplugClient;
 
-    private _BTDevice$: BehaviorSubject<string> = new BehaviorSubject<string>(undefined);
     private _BTDevices$: BehaviorSubject<Array<any>> = new BehaviorSubject<Array<any>>([]);
 
     constructor() {
