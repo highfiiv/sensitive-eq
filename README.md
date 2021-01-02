@@ -1,27 +1,48 @@
-# Sysaudio
+# Running the project
+ - Clone this [project repo](https://lmgtfy.app/?q=how+to+pull+a+github+repository). 
+ - Is [NPM](https://www.npmjs.com/get-npm) installed globally on your computer?
+ - Make sure Angular CLI 11 is installed globally also.
+ - Install the project dependencies with `npm i`.
+ - Run the project with `npm run start`.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.0.
+Note:
+This project needs full access to your computer's audio!
+Windows machines typically allow easy access to system audio devices.
+MacOS blocks system audio and you'll likely need a third-party audio device [like sound-flower](https://github.com/mattingalls/Soundflower/releases/) or [EQ-MAC](https://eqmac.app/)
 
-## Development server
+![EQ Example](https://github.com/highfiiv/sensitive-eq/tree/master/src/assets/eq-example.gif)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Pitching in
+Submit a PR :)
 
-## Code scaffolding
+## WIP
+This project is a work-in-progress and has no gaurantee of functionality in any way.
+ 1. When haptic devices connect certain audio frequency bands should be mappable to specific haptic engines.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## How the audio system works
+Short version:
+ - Volume dB peaks into frequency ranges you set on each of 16 "bands"
+ - How far into the range is calculated as .1 - 1.0 vib command
 
-## Build
+Longer version:
+ - 12 times per second the audio updates and triggers this math. (not sure of the perfect frequency yet)
+ - The user sets range levels on each frequency band
+ - When audio levels rise dB levels peak into the user's range
+ - The range is always 0-100% (translated to 0.1 - 1.0)
+ - 0.1 - 1.0 is used for haptic values
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## TODOs
+ 1. FEATURE: Assigning selected frequency values to specific haptics the device may have.
+ 2. FIX: An optional video upload adds the video blob to `video` src as expected but not playable for unknown reason
+ 3. FEATURE: Record JSON scripts of these "peak" values for playback on other script playing/editing softwares
+ 4. FEATURE: Edit a JSON script of recorded peak sensitivity scores
 
-## Running unit tests
+## LICENSE
+MIT - Please submit PRs to this repo for the community's use and progress on this audio-haptic project.
+Copyright 2021 - HighFiiv
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-## Running end-to-end tests
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
