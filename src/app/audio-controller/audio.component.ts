@@ -117,9 +117,8 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
             // calculate the height of each band element using frequency data
             for (var i = 0; i < this._fbc; i++) {
                 this.bands[i].dB = this._data[i];
-                // this.bands[i].dB >= this.bands[i].
 
-                // SENSITIVITY SCORE 0 - 255
+                // SENSITIVITY SCORE 0 - 255: CHANGE TO 0-100 for easy math everywhere
                 // current dB is within how much of the sensitivity range
                 const ratio = this.bands[i].dB - this.bands[i].sensitivity;
                 if (ratio >= 0) {
@@ -168,7 +167,7 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
         return allocated.slice().reverse();
     }
 
-    // Add range values to their band data
+    // model real-time peak value data - emitted from each band.component
     public updateBandSense(band: { sensitivity: number, id: number }) {
         this.bands[band.id].sensitivity = band.sensitivity;
     }

@@ -17,16 +17,23 @@ import { BaseControlValueAccessor } from '@shared/utilities/BaseControlValueAcce
 })
 export class BandComponent extends BaseControlValueAccessor<any> implements OnInit, OnDestroy {
     private _ngUnsubscribe: Subject<void> = new Subject<void>();
-    @Input() set dB(value: number) {
-        this.peak = value;
-        this.score = this.form.controls.range.value < value ? value - this.form.controls.range.value : 0;
+    @Input() set dB(dB: number) {
+        this.db = this.form.controls.range.value < dB ? dB - this.form.controls.range.value : 0;
+
+        // change dB scale from 0-255 to 0-100%
+        // this.db = Number(((dB / 255) * 100).toFixed(2));
+        console.log(this.db);
+
+        // how far is db peaking into the user-defined range?
+        this.peaking = this.form.controls.range.value < dB ? parseInt(((dB / 255) * 100).toFixed(2)) : 0;
+        console.log(Number(((dB / 255) * 100).toFixed(2)));
     }
 
     @Input() id: number = 0;
     @Output() senseVal = new EventEmitter<number>();
-    public peak: number = 0; // public dB level
-    public percent: number = 50; // range value is what percentage of 0 - 255
-    public score: number = 0; // dB peaks into the range value this much
+    public db: number = 0; // public dB level
+    public rangeVal: number = 50; // range value is what percentage of 0 - 255
+    public peaking: number = 0; // dB peaks into the range value this much
     public form = <FormGroup>this.fb.group({
         range: this.fb.control(null)
     });
@@ -51,8 +58,8 @@ export class BandComponent extends BaseControlValueAccessor<any> implements OnIn
             .pipe(
                 takeUntil(this._ngUnsubscribe)
             ).subscribe((val: any) => {
-                this.percent = parseInt(((val / 255) * 100).toFixed());
-                this.renderer.setStyle(this.elementRef.nativeElement, 'background-image', `linear-gradient(rgba(253,92,99,1), rgba(144,255,0,1) ${this.percent}%)`);
+                this.rangeVal = parseInt(((val / 255) * 100).toFixed());
+                this.renderer.setStyle(this.elementRef.nativeElement, 'background-image', `linear-gradient(rgba(253,92,99,1), rgba(144,255,0,1) ${this.rangeVal}%)`);
                 this.senseVal.emit(val);
             });
     }
