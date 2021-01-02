@@ -1,7 +1,6 @@
 # Running the project
  - Clone this [project repo](https://lmgtfy.app/?q=how+to+pull+a+github+repository). 
- - Is [NPM](https://www.npmjs.com/get-npm) installed globally on your computer?
- - Make sure Angular CLI 11 is installed globally also.
+ - Install [NPM](https://www.npmjs.com/get-npm) AND Angular CLI 11.x globally on your computer.
  - Install the project dependencies with `npm i`.
  - Run the project with `npm run start`.
 
@@ -17,9 +16,11 @@ Submit a PR :)
 
 ## WIP
 This project is a work-in-progress and has no gaurantee of functionality in any way.
- 1. When haptic devices connect certain audio frequency bands should be mappable to specific haptic engines.
+Please help.
 
 ## How the audio system works
+For audio and EQ see [audio-controller.ts](https://github.com/highfiiv/sensitive-eq/blob/master/src/app/audio-controller/audio.component.ts)
+All audio controls, streams and devices run through [sync.service.ts](https://github.com/highfiiv/sensitive-eq/blob/master/src/app/shared/services/sync.service.ts)
 Short version:
  - Volume dB peaks into frequency ranges you set on each of 16 "bands"
  - How far into the range is calculated as .1 - 1.0 vib command
