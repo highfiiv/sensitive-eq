@@ -14,7 +14,7 @@ import { BaseControlValueAccessor } from '@shared/utilities/BaseControlValueAcce
     }]
 })
 export class InputRangeComponent extends BaseControlValueAccessor<any> implements OnInit {
-    @Input() value: string = '2.5';
+    @Input() value: string | number = 2.5;
     @Input() name: string = '';
     @Input() forID: string; // id value to match a parent label
     @Input() max: number = 255;
@@ -26,12 +26,12 @@ export class InputRangeComponent extends BaseControlValueAccessor<any> implement
 
     public ngOnInit(): void {}
 
-    public writeValue(val: string): void {
+    public writeValue(val: string | number): void {
         this.value = val;
         this.onChange(+this.value); // set the control/form value
     }
 
-    public onInput(val: string): void {
+    public onInput(val: string | number): void {
         this.value = val;
         this.onChange(+this.value); // set the control/form value
     }

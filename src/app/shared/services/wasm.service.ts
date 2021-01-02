@@ -73,13 +73,14 @@ export class WasmService {
             console.log(device);
             this._client.Devices.forEach((device) => this._BTDevices$.next(this._BTDevices$.getValue().concat([device])));
         });
-        this._client.addListener("deviceremoved", (device) =>
-            this._BTDevices$
-                .next(this._BTDevices$
-                    .getValue()
-                    .filter(function (value, index, arr) {
-                        return value !== device.Name;
-                    })));
+        // remove all devices!
+        this._client.addListener("deviceremoved", (device) => this._BTDevices$.next([]));
+            // this._BTDevices$
+            //     .next(this._BTDevices$
+            //         .getValue()
+            //         .filter(function (value, index, arr) {
+            //             return value !== device.Name;
+            //         })));
     }
 
     public startScanning(): void {

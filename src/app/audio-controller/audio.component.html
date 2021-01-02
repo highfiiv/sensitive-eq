@@ -1,10 +1,10 @@
 <div class="eq-wrapper" *ngIf="playing" [ngStyle]="{'opacity': transparency}">
     <div class="eqbands">
         <ng-container *ngFor="let band of bands; index as i; trackBy: trackByFn;">
-            <band [dB]="band.dB" (senseVal)="updateBandSense({sensitivity:$event, id:i})"></band>
+            <band [dB]="band.dB" (values)="updateBandRange($event)"></band>
         </ng-container>
         <form class="transparencyForm" [formGroup]="transparencyForm" (keydown.enter)="$event.preventDefault()" title="transparency">
-            <input-range formControlName="transparency" name='' [step]="0.1" value='1' [min]="0.1" [max]="1" title="transparency"></input-range>
+            <input-range formControlName="transparency" name='' [step]="0.1" [value]='1' [min]="0.1" [max]="1" title="transparency"></input-range>
         </form>
         <div class="freqs">
             <div class="freq" *ngFor="let freq of freqs;">{{freq}}+</div>

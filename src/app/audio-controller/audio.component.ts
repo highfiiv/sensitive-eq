@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { SyncService } from '@shared/services/sync.service';
 import { WasmService } from '@shared/services/wasm.service';
 import * as Buttplug from 'buttplug';
+import { IBand } from '@common';
 
 @Component({
     selector: 'audio-controller',
@@ -23,8 +24,8 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
     private _data: Uint8Array; // final audio data in the standard format
 
     private _activeBTDevices = [];
-
-    public bands: { dB?: number, sensitivity?: number }[] = []; // eq band objects for element height etc
+    maxPeak=0;
+    public bands: IBand[] = []; // eq band objects for element height etc
     public freqs: number[];
     public playing = false;
 
@@ -45,6 +46,11 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
             takeUntil(this._ngUnsubscribe)
         ).subscribe((res: any) => {
             this.playing = res;
+            if (!res) {
+                clearInterval(this._intervalID);
+                this.playing = false;
+            }
+
         });
 
         // subscribe to audio device selection (the select dropdown in main nav)
@@ -55,6 +61,8 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
             if (res) {
                 this._audioDeviceId = res;
                 this.play(this._audioDeviceId);
+            } else {
+                this.stop();
             }
         });
 
@@ -78,19 +86,35 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
         https://github.com/buttplugio/buttplug-developer-guide/blob/master/examples/javascript/device-control-example.js
         When sensitivity scores exist this method:
         - Probably want to debounce this or turn down the times-per-second in frameLooper()
+        - Needs to know which band's values should be used
+        - Needs to know if the haptic has multiple engines
+        - Needs to know which band's values should be used for each haptic engine
     * ------------------------------------------------------------------------ */
-    private async sensitivityRequest(amount: number) {
-        if (this._activeBTDevices && this._activeBTDevices.length > 0) {
-            for (let i = 0, j = this._activeBTDevices.length; i < j; i++) {
-                try {
-                    await this._activeBTDevices[i].vibrate(amount / 100);
-                } catch (e) {
-                    if (e instanceof Buttplug.ButtplugDeviceError) {
-                        console.log("got a device error!");
-                    }
-                }
+    private async sensitivityRequest(): Promise<any> {
+        // get highest peak value from all 16 bands
+        const max = Math.max.apply(Math, this.bands.map(function(o) { return o.peak; })) / 100;
+        // console.log(max, this.maxPeak);
+        if (max != this.maxPeak) {
+            this.maxPeak = max;
+            await this._activeBTDevices[0].vibrate(this.maxPeak);
+        } else {
+            for ( let i = 0, j = this.bands.length; i < j; i++ ) {
+                this.bands[i].peak = 0;
             }
         }
+
+        // if (this._activeBTDevices && this._activeBTDevices.length > 0) { // dont check for devices each message
+        // if (max > 0) {
+            // for (let i = 0, j = this._activeBTDevices.length; i < j; i++) {
+            //     try {
+            //         await this._activeBTDevices[i].vibrate(max / 100);
+            //     } catch (e) {
+            //         if (e instanceof Buttplug.ButtplugDeviceError) {
+            //             console.log("got a device error!");
+            //         }
+            //     }
+            // }
+        // }
     }
 
     // Control the view
@@ -118,13 +142,17 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
             for (var i = 0; i < this._fbc; i++) {
                 this.bands[i].dB = this._data[i];
 
-                // SENSITIVITY SCORE 0 - 255: CHANGE TO 0-100 for easy math everywhere
-                // current dB is within how much of the sensitivity range
-                const ratio = this.bands[i].dB - this.bands[i].sensitivity;
-                if (ratio >= 0) {
-                    this.sensitivityRequest(ratio);
+                this.bands[i].dBPercent = parseInt(((this.bands[i].dB / 255) * 100).toFixed());
+                // 3: calculate peak: how much dB is peaking into the user-set range
+                if (this.bands[i].range < this.bands[i].dBPercent) {
+                    this.bands[i].peak = this.bands[i].dBPercent - this.bands[i].range;
                 }
+
+                // this.bands[i].peak = this.bands[i].range < this.bands[i].dB ?
+                //     this.dBPercent - this.range;
+
             }
+            this.sensitivityRequest();
         }, time);
     }
 
@@ -156,8 +184,10 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
         // setup eqbands and labels
         for (let i = 0, j = bands; i < j; i++) {
             this.bands[i] = {
-                'dB': undefined,
-                'sensitivity': 50
+                'id': i,
+                'dB': 0,
+                'range': 90,
+                'peak': 0
             }
             // frequency labels
             // sampleRate = Math.round(sampleRate - fqRange);
@@ -168,8 +198,10 @@ export class AudioComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // model real-time peak value data - emitted from each band.component
-    public updateBandSense(band: { sensitivity: number, id: number }) {
-        this.bands[band.id].sensitivity = band.sensitivity;
+    public updateBandRange(band: IBand) {
+        this.bands[band.id] = {
+            range: band.range
+        };
     }
 
     // PRESS play button (or select an audio device)

@@ -1,5 +1,11 @@
-<p class="score"><span title="sensitivity">{{rangeVal}}</span> &nbsp;/ <span title="peaking">{{peaking}}</span></p>
+<p class="score">
+    <!-- The user-set sensitivity range 0-100 -->
+    <span class="sensitivity" title="sensitivity">{{range}}</span>
+
+    <!-- The dB level is peaking into the range by X% -->
+    <span class="peaking" title="peaking"><ng-container *ngIf="peak > 0">{{peak}}</ng-container></span>
+</p>
 <form class="range-form" [formGroup]="form" (keydown.enter)="$event.preventDefault()">
-    <input-range formControlName="range"></input-range>
+    <input-range formControlName="range" [min]="0" [max]="100" [value]="50"></input-range>
 </form>
-<div class="eqband" [ngStyle]="{'padding-top': db+'px'}"></div>
+<div class="eqband" [ngStyle]="{'padding-top': paddingTop+'px'}"></div>
