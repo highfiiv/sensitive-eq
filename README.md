@@ -10,7 +10,7 @@ This project needs full access to your computer's audio!
 Windows machines typically allow easy access to system audio devices.
 MacOS blocks system audio and you'll likely need a third-party audio device [like sound-flower](https://github.com/mattingalls/Soundflower/releases/) or [EQ-MAC](https://eqmac.app/)
 
-![EQ Example](https://github.com/highfiiv/sensitive-eq/tree/master/src/assets/eq-example.gif)
+![eq-example](https://user-images.githubusercontent.com/74268803/103449338-cf229700-4c74-11eb-918c-32a7946efcde.gif)
 
 ## Pitching in
 Submit a PR :)
